@@ -1,0 +1,95 @@
+<div class="container my-4">
+    <div class="row">
+        <div class="col-4">
+            
+
+
+                        <div class="card border-primary mb-3" style="max-width: 20rem;">
+                            <div class="card-header">Search for location</div>
+                            <div class="card-body">
+                              <h4 class="card-title">Your City</h4>
+                              <form [formGroup]="locationSearchForm" (ngSubmit)="APIgetLocation(locationSearchForm.value)">
+                                <div class="form-group">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    id="weatherLocation"
+                                    [ngModel]="city"
+                                    aria-describedby="weatherLocation"
+                                    placeholder="Please input a Location"
+                                    formControlName="location" />
+                                 </div>
+                                 <div class="text-center"> 
+                                  <button type="submit" class="btn btn-primary btn-sm my-4">
+                                    Search for the location</button>
+                                 </div>
+                               </form>
+                            </div>
+                          </div>
+                          <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                            <div class="card-header">Search for weather</div>
+                            <div class="card-body">
+                              <h4 class="card-title">You Location</h4>
+                              <form [formGroup]="weatherSearchForm" (ngSubmit)="APIgetWeather(weatherSearchForm.value)">
+                                <div class="form-group">
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    id="latitude"
+                                    [ngModel]="locationData?.results[0].latitude"
+                                    aria-describedby="Latitude"
+                                    placeholder="Latitude"
+                                    formControlName="latitude"/>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="longitude"
+                                    [ngModel]="locationData?.results[0].longitude"
+                                    aria-describedby="Longitude"
+                                    placeholder="Longitude"
+                                    formControlName="longitude"/>
+                                 </div>
+                                 <div class="text-center"> 
+                                  <button type="submit" class="btn btn-primary btn-sm my-4">
+                                    Search for the weather</button>
+                                 </div>
+                               </form> </div>
+                          </div>
+                          <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                            <div class="card-header">Current Weather Details</div>
+                            <div class="card-body">
+                                <p class="text-center">
+                                    Temperature (C): {{this.weatherData?.current.temperature_2m}}
+                                </p>
+                                <p class="text-center">
+                                  Wind speed (Km/h): {{this.weatherData?.current.wind_speed_10m}}
+                                </p>
+                                <p class="text-center">
+                                    Current time: {{this.weatherData?.current.time}}
+                                </p></div>
+                          </div>
+
+
+                        
+         
+   
+            </div>
+       
+        <div class="col-8">
+
+            <div class="container"><h3 class="text-center my-4">Weather Forcast</h3> 
+                <div class="row border text-center text-primary"><div class="col border ">Date</div><div class="col border ">Time</div><div class="col border">Temperature (C)</div><div class="col border">Wind speed (Km/h)</div></div>
+                @for (i of getRange(weatherData.hourly.time.length); track i){
+                    <div class="row border text-center" >
+                      <div class="col border">{{ (weatherData.hourly.time[i])|date:'dd/MM/yyyy'}}</div>
+                      <div class="col border">{{ weatherData?.hourly.time[i]|date:'HH:mm' }}</div>
+                      <div class="col border">{{ weatherData?.hourly.temperature_2m[i] }}</div>
+                      <div class="col border">{{ weatherData?.hourly.wind_speed_10m[i] }}</div>
+                    </div>
+                }
+                  </div>
+        </div>
+    </div>
+</div>
+
+
